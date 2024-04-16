@@ -29,12 +29,15 @@ class ViewController: UIViewController {
     //MARK: - IBAction
     
     @IBAction func buttonPlayPress(_ sender: UIButton) {
+        
     }
     
     @IBAction func buttonAchievementsPress(_ sender: UIButton) {
+        
     }
     
     @IBAction func buttonSettingsPress(_ sender: UIButton) {
+        
     }
     
 }
