@@ -9,6 +9,7 @@ import UIKit
 
 class GameViewController: UIViewController {
     
+    //MARK: - IBOutlet
     
     @IBOutlet weak var imegeViewCarTwo: UIImageView!
     @IBOutlet weak var imageViewCarOne: UIImageView!
@@ -20,6 +21,12 @@ class GameViewController: UIViewController {
     @IBOutlet weak var imageViewBushThree: UIImageView!
     @IBOutlet weak var buttonLeft: UIButton!
     @IBOutlet weak var buttonRight: UIButton!
+    
+    // MARK: - Properties
+    
+    var number: CGFloat = 30
+    
+    //MARK: - Lifecycle funcs
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,12 +41,52 @@ class GameViewController: UIViewController {
         imageViewStoneThree.image = UIImage(named: "stoneOne")
     }
     
+    //MARK: - Enum
+    
+    enum Direction {
+        case left
+        case right
+    }
+    
+    //MARK: - Flow Functions
+    
+    func create() {
+       
+        let recognizerLeft = UITapGestureRecognizer(target: self, action: #selector (tapDetectedLeft))
+        imageViewCarOne.addGestureRecognizer(recognizerLeft)
+        let recognizerRight = UITapGestureRecognizer(target: self, action: #selector (tapDetectedRight))
+        imageViewCarOne.addGestureRecognizer(recognizerRight)
+    }
+    
+    func moveCircle(to direction: Direction) {
+        switch direction {
+            case .left:
+                if imageViewCarOne.frame.origin.x  > number {
+                    imageViewCarOne.frame.origin.x -= number
+                }
+            case .right:
+                if view.frame.size.width - imageViewCarOne.frame.origin.x - imageViewCarOne.frame.size.width > number  {
+                    imageViewCarOne.frame.origin.x += number
+                }
+        }
+    }
+    
+    @objc func tapDetectedLeft() {
+        moveCircle(to: .left)
+    }
+    
+    @objc func tapDetectedRight() {
+        moveCircle(to: .right)
+    }
+    
+    //MARK: - IBAction
+    
     @IBAction func buttonLeftPress(_ sender: UIButton) {
-        
+        tapDetectedLeft()
     }
     
     @IBAction func buttonRightPress(_ sender: UIButton) {
-        
+        tapDetectedRight()
     }
     
 }
